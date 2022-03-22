@@ -1,0 +1,35 @@
+{
+  "name": "uni-tract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@e.coding.net:maplercn/blockchain-hd/uni-tract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@chainlink/contracts": "^0.2.1",
+    "@openzeppelin/contracts": "^4.3.1",
+    "@openzeppelin/contracts-upgradeable": "^4.1.0",
+    "@openzeppelin/test-helpers": "^0.5.13",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "@openzeppelin/truffle-upgrades": "^1.7.1",
+    "@truffle/hdwallet-provider": "^1.4.1",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.1",
+    "truffle": "^5.4.8",
+    "truffle-contract-size": "^2.0.1",
+    "truffle-flattener": "^1.5.0",
+    "truffle-plugin-verify": "^0.5.12"
+  }
+}
