@@ -46,11 +46,11 @@ contract VRFv2Consumer is VRFConsumerBaseV2 {
   address s_owner;
   address public reader;
 
-  constructor() VRFConsumerBaseV2(vrfCoordinator) {
+  constructor(uint64 subscriptionId) VRFConsumerBaseV2(vrfCoordinator) {
     COORDINATOR = VRFCoordinatorV2Interface(vrfCoordinator);
     LINKTOKEN = LinkTokenInterface(link);
     s_owner = msg.sender;
-    s_subscriptionId = 268;
+    s_subscriptionId = subscriptionId;
   }
 
   // Assumes the subscription is funded sufficiently.
@@ -64,7 +64,7 @@ contract VRFv2Consumer is VRFConsumerBaseV2 {
       numWords
     );
   }
-  
+
   function fulfillRandomWords(
     uint256, /* requestId */
     uint256[] memory randomWords
@@ -86,3 +86,4 @@ contract VRFv2Consumer is VRFConsumerBaseV2 {
     return s_randomWords[_s];
   }
 }
+

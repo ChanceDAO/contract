@@ -7,14 +7,10 @@ import "./base/VRFv2Consumer.sol";
 contract ChanceDrop is Ownable {
 
     address VRF_ADDR;
-    address DROP_MINTER;
-    
+    address public DROP_MINTER;
+
     function setVRF(address _addr) public onlyOwner {
         VRF_ADDR = _addr;
-    }
-
-    function getVRF() public view returns (address) {
-        return VRF_ADDR;
     }
 
     function get_rand(uint256 start, uint256 end, uint256 _seed) private pure returns(uint256) {
@@ -29,9 +25,12 @@ contract ChanceDrop is Ownable {
         require(msg.sender == DROP_MINTER, "Permission Denied");
         uint256 start = round * 100 + 1;
         if (lastEnd <= start) {
-            start = lastEnd; 
+            start = lastEnd;
         }
-        require(end >= start, "Wrong Drop Condition");
+        if (end == start) {
+            return 0;
+        }
+        require(end > start, "Wrong Drop Condition");
 
         // test seed
         // uint256 _seed = uint256(keccak256(abi.encode(block.difficulty, block.timestamp)));
@@ -55,3 +54,4 @@ contract ChanceDrop is Ownable {
     }
 
 }
+

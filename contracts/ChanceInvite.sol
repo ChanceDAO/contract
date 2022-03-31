@@ -24,16 +24,8 @@ contract ChanceInvite is Ownable {
         inviteTTL = _t;
     }
 
-    function getInviteTTL() public view returns (uint256) {
-        return inviteTTL;
-    }
-
-    function getInviteCode(address _addr) public view returns (string memory) {
-        return inviteCodeMap[_addr];
-    }
-
-    function getInviteAddr(string memory _i) public view returns (address) {
-        return inviteAddrMap[_i];
+    function getInviteCount(address _addr) public view returns (uint256) {
+        return inviteCount[_addr];
     }
 
     function setInviteCode(string memory inviteCode) public {
@@ -44,24 +36,10 @@ contract ChanceInvite is Ownable {
         inviteAddrMap[inviteCode] = msg.sender;
     }
 
-    function generateInviteCode(address _addr) private {
-        randNonce++;
-        string memory _i = Strings.toString(randNonce);
-        inviteCodeMap[_addr] = _i;
-        inviteAddrMap[_i] = _addr;
-    }
-
-    function getInviteCount(address _addr) public view returns (uint256){
-        return inviteCount[_addr];
-    }
-
     function inviteParty(address _addr, string memory _inviteCode) public returns (address) {
-        // if (bytes(inviteCodeMap[_addr]).length == 0) {
-        //     // if new addr
-        //     // create addr invite code
-        //     generateInviteCode(_addr);
-        //     // set msg.sender ttl addr 30 days
-        // }
+        if (keccak256(abi.encodePacked((_inviteCode))) == keccak256(abi.encodePacked(("")))) {
+            return BLACKHOLE_ADDR;
+        }
 
         address inviteAddr = inviteAddrMap[_inviteCode];
         if (inviteAddr == _addr) {
@@ -91,3 +69,4 @@ contract ChanceInvite is Ownable {
         }
     }
 }
+
